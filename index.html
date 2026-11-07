@@ -61,7 +61,7 @@ function updatePreview(){const entries=Object.entries(cart);const subtotal=entri
 document.getElementById('orderType').addEventListener('change',e=>{const type=e.target.value;const f=document.getElementById('addressField'),t=document.getElementById('tableField');f.classList.toggle('hidden',type!=='Entrega');t.classList.toggle('hidden',type!=='Consumo no local');document.getElementById('address').required=type==='Entrega';document.getElementById('tableNumber').required=type==='Consumo no local'});
 document.getElementById('search').addEventListener('input',drawProducts);
 document.getElementById('checkoutForm').addEventListener('submit',e=>{e.preventDefault();generateBalconyReceipt();document.getElementById('formContents').classList.add('hidden');document.getElementById('confirmation').style.display='block'});
-function sendOrderWhatsApp(){if(!orderText){toast('Monte o pedido primeiro.');return}const url='https://api.whatsapp.com/send?text='+encodeURIComponent(orderText);window.location.assign(url)}
+function sendOrderWhatsApp(){if(!orderText){toast('Monte o pedido primeiro.');return}const url='https://api.whatsapp.com/send?text='+encodeURIComponent(orderText);const tab=window.open(url,'_blank');if(!tab)toast('Permita abrir o WhatsApp em uma nova aba.')}
 async function copyOrder(){try{await navigator.clipboard.writeText(orderText);document.getElementById('copyStatus').textContent='Resumo copiado! Agora é só colar na conversa da lanchonete.'}catch(e){const ta=document.createElement('textarea');ta.value=orderText;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();document.getElementById('copyStatus').textContent='Resumo copiado!'}}
 drawCategories();drawProducts();renderCart();
 </script>
